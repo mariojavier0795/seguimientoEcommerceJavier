@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Creación de Despacho</title>
+</h:head>
+<h:body>
+    <ui:composition template="/principal.xhtml">
+        <ui:define name="content">
+            <h:form id="frmDespacho">
+                <h5>Despacho</h5>
+                <p:growl id="growl" showDetail="true" />
+                <p:panel id="ingresoDespacho" header="Ingreso Despachos" style="margin-botton:20px">
+                    <p:panelGrid columns="6">
+                        <p:outputLabel>Fecha Despacho</p:outputLabel>
+                        <p:datePicker showIcon="true" value="#{despachoVista.despachoBean.fechaDespacho}" />
+                        <p:outputLabel>Forma Transporte Despacho</p:outputLabel>
+                        <p:inputText value="#{despachoVista.despachoBean.formaTransporteDespacho}"></p:inputText>
+                        <p:outputLabel>Fecha Recepción Despacho</p:outputLabel>
+                        <p:datePicker showIcon="true" value="#{despachoVista.despachoBean.fechaRecepcionDespacho}" />
+                        <p:outputLabel>Nombre Recibe Despacho</p:outputLabel>
+                        <p:inputText value="#{despachoVista.despachoBean.nombreRecibeDespacho}"></p:inputText>
+                        <p:outputLabel>Télefono Recibe Despacho</p:outputLabel>
+                        <p:inputText value="#{despachoVista.despachoBean.telefonoRecibeDespacho}"></p:inputText>
+                        <p:outputLabel>Concretado Despacho</p:outputLabel>
+                        <p:inputText value="#{despachoVista.despachoBean.concretadoDespacho}"></p:inputText>
+                        <p:outputLabel>Costo Despacho</p:outputLabel>
+                        <p:inputText value="#{despachoVista.despachoBean.costoDespacho}"></p:inputText>
+                        <p:outputLabel>Observación Despacho</p:outputLabel>
+                        <p:inputText value="#{despachoVista.despachoBean.observacionesDespacho}"></p:inputText>
+                        <p:outputLabel>Forma Pago Despacho</p:outputLabel>
+                        <p:inputText value="#{despachoVista.despachoBean.formaPagoDespacho}"></p:inputText>
+                        <p:outputLabel>Pedido</p:outputLabel>
+                        <p:selectOneMenu value="#{despachoVista.despachoBean.fkPedidoDespacho.idPedido}">
+                            <f:selectItems value="#{despachoVista.lstPedido}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2">
+                        <p:commandButton value="GUARDAR" icon="fa fa-fw fa-save"  update="growl frmDespacho" action="#{despachoVista.insertarDespacho}"></p:commandButton>
+                        <p:commandButton value="CANCELAR" icon="fa fa-fw fa-remove" update="growl frmDespacho" action="#{despachoVista.cancelarIngresoDespacho}"></p:commandButton>
+                    </p:panelGrid>
+
+                </p:panel>
+
+                <p:dataTable id="dtDespacho" var="despacho" value="#{despachoVista.lstDespacho}" sixe="large" >
+                    <p:column headerText="Fecha Despacho">
+                        <h:outputText value="#{despacho.fechaDespacho}">
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Forma Transporte Despacho">
+                        <h:outputText value="#{despacho.formaTransporteDespacho}" />
+                    </p:column>
+
+                    <p:column headerText="Fecha Recepción Despacho">
+                        <h:outputText value="#{despacho.fechaRecepcionDespacho}">
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Nombre Recibe Despacho">
+                        <h:outputText value="#{despacho.nombreRecibeDespacho}" />
+                    </p:column>
+
+                    <p:column headerText="Télefono Recibe Despacho">
+                        <h:outputText value="#{despacho.telefonoRecibeDespacho}" />
+                    </p:column>
+
+                    <p:column headerText="Concretado Despacho">
+                        <h:outputText value="#{despacho.concretadoDespacho}" />
+                    </p:column>
+
+                    <p:column headerText="Costo Despacho">
+                        <h:outputText value="#{despacho.costoDespacho}" />
+                    </p:column>
+
+                    <p:column headerText="Observación Despacho">
+                        <h:outputText value="#{despacho.observacionesDespacho}" />
+                    </p:column>
+
+                    <p:column headerText="Forma Pago Despacho">
+                        <h:outputText value="#{despacho.formaPagoDespacho}" />
+                    </p:column>
+
+                    <p:column headerText="Pedido Despacho">
+                        <h:outputText value="#{despacho.fkPedidoDespacho.numeroFacturaPedido}" />
+                    </p:column>
+
+                    <p:column headerText="Operaciones">
+                        <p:commandButton value="Eliminar" icon="pi pi-trash" update=":frmDespacho:dtDespacho" action="#{despachoVista.eliminarDespacho(despacho.idDespacho)}"></p:commandButton>
+                        <p:commandButton value="Editar" icon="fa fa-fw fa-edit" update=":frmDespacho:ingresoDespacho" action="#{despachoVista.editarDespacho(despacho.idDespacho)}"></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Creación de Pedidos</title>
+</h:head>
+<h:body>
+    <ui:composition template="/principal.xhtml">
+        <ui:define name="content">
+            <h:form id="frmPedido">
+                <h5>Pedido</h5>
+                <p:growl id="growl" showDetail="true" />
+                <p:panel id="ingresoPedido" header="Ingreso Pedido" style="margin-botton:20px">
+                    <p:panelGrid columns="8">
+                        <p:outputLabel>Cantidad Unidades Pedido</p:outputLabel>
+                        <p:inputText value="#{pedidoVista.pedidoBean.cantidadUnidadesPedido}"></p:inputText>
+                        <p:outputLabel>Fecha Pedido</p:outputLabel>
+                        <p:datePicker showIcon="true" value="#{pedidoVista.pedidoBean.fechaPedido}" />
+                        <p:outputLabel>PVP Pedido</p:outputLabel>
+                        <p:inputText value="#{pedidoVista.pedidoBean.pvpPedido}"></p:inputText>
+                        <p:outputLabel>Anulado Pedido</p:outputLabel>
+                        <p:inputText value="#{pedidoVista.pedidoBean.anuladoPedido}"></p:inputText>
+                        <p:outputLabel>Número Factura Pedido</p:outputLabel>
+                        <p:inputText value="#{pedidoVista.pedidoBean.numeroFacturaPedido}"></p:inputText>
+                        <p:outputLabel>Cliente</p:outputLabel>
+                        <p:selectOneMenu value="#{pedidoVista.pedidoBean.fkCliente.idCliente}">
+                            <f:selectItems value="#{pedidoVista.lstCliente}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel>Publicación</p:outputLabel>
+                        <p:selectOneMenu value="#{pedidoVista.pedidoBean.fkPublicacion.idPublicacion}">
+                            <f:selectItems value="#{pedidoVista.lstPublicaciones}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2">
+                        <p:commandButton value="GUARDAR" icon="fa fa-fw fa-save" update="growl frmPedido" action="#{pedidoVista.insertarPedido}"></p:commandButton>
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2">
+                        <p:commandButton value="CANCELAR" icon="fa fa-fw fa-remove" update="growl frmPedido" action="#{pedidoVista.cancelarIngresoPedido}"></p:commandButton>
+                    </p:panelGrid>
+
+                </p:panel>
+
+                <p:dataTable id="dtPedido" var="pedido" value="#{pedidoVista.lstPedido}" sixe="large" >
+                    <p:column headerText="Cantidad Unidades Pedido">
+                        <h:outputText value="#{pedido.cantidadUnidadesPedido}" />
+                    </p:column>
+
+                    <p:column headerText="Fecha Pedido">
+                        <h:outputText value="#{pedido.fechaPedido}">
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="PVP Pedido">
+                        <h:outputText value="#{pedido.pvpPedido}" />
+                    </p:column>
+
+                    <p:column headerText="Anulado Pedido">
+                        <h:outputText value="#{pedido.anuladoPedido}" />
+                    </p:column>
+
+                    <p:column headerText="Número Factura Pedido">
+                        <h:outputText value="#{pedido.numeroFacturaPedido}" />
+                    </p:column>
+
+                    <p:column headerText="Cliente">
+                        <h:outputText value="#{pedido.fkCliente.nombreCliente}" />
+                    </p:column>
+
+                    <p:column headerText="Vendedor Publicación">
+                        <h:outputText value="#{pedido.fkPublicacion.vendedorPublicacion}" />
+                    </p:column>
+
+                    <p:column headerText="Operaciones">
+                        <p:commandButton value="Eliminar" icon="pi pi-trash" update=":frmPedido:dtPedido"  action="#{pedidoVista.eliminarPedido(pedido.idPedido)}"></p:commandButton>
+                        <p:commandButton value="Editar" icon="fa fa-fw fa-edit" update=":frmPedido:ingresoPedido" action="#{pedidoVista.editarPedido(pedido.idPedido)}"></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

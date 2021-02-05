@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Creación de Productos</title>
+</h:head>
+<style type="text/css">
+    .ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell {
+        text-align: center;
+    }
+
+    .customPanelGrid .ui-panelgrid-content {
+        align-items: center;
+    }
+</style>
+<h:body>
+    <ui:composition template="/principal.xhtml">
+        <ui:define name="content">
+            <h:form id="frmProducto">
+                <h5>Producto</h5>
+                <p:growl id="growl" showDetail="true" />
+                <p:panel id="ingresoProducto" header="Ingreso Productos" style="margin-botton:20px">
+                    <p:panelGrid columns="4">
+                        <p:outputLabel>Detalle Producto</p:outputLabel>
+                        <p:inputText value="#{productoVista.producto2Bean.detalleProducto}"></p:inputText>
+                        <p:outputLabel>PVP Producto</p:outputLabel>
+                        <p:inputText value="#{productoVista.producto2Bean.pvpProducto}"></p:inputText>
+                        <p:outputLabel>Stock Producto</p:outputLabel>
+                        <p:inputText value="#{productoVista.producto2Bean.stockProducto}"></p:inputText>
+                        <p:outputLabel>Costo Producto</p:outputLabel>
+                        <p:inputText value="#{productoVista.producto2Bean.costoProducto}"></p:inputText>
+                        <p:outputLabel>Caducidad Producto</p:outputLabel>
+                        <p:inputText value="#{productoVista.producto2Bean.caducidadProducto}"></p:inputText>
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2">
+                        <p:commandButton value="GUARDAR" icon="fa fa-fw fa-save"   update="growl frmProducto" action="#{productoVista.insertarProducto}"></p:commandButton>
+                        <p:commandButton value="CANCELAR" icon="fa fa-fw fa-remove" update="growl frmProducto" action="#{productoVista.cancelarIngresoProducto}"></p:commandButton>
+                    </p:panelGrid>
+
+                </p:panel>
+
+                <p:dataTable id="dtProducto" var="producto" value="#{productoVista.lstProductos}" sixe="large" >
+                    <p:column headerText="Detalle Producto">
+                        <h:outputText value="#{producto.detalleProducto}" />
+                    </p:column>
+
+                    <p:column headerText="PVP Producto">
+                        <h:outputText value="#{producto.pvpProducto}" />
+                    </p:column>
+
+                    <p:column headerText="Stock Producto">
+                        <h:outputText value="#{producto.stockProducto}" />
+                    </p:column>
+
+                    <p:column headerText="Costo Producto">
+                        <h:outputText value="#{producto.costoProducto}" />
+                    </p:column>
+
+                    <p:column headerText="Caducidad Producto">
+                        <h:outputText value="#{producto.caducidadProducto}" />
+                    </p:column>
+
+                    <p:column headerText="Operaciones">
+                        <p:commandButton value="Eliminar" icon="pi pi-trash" update=":frmProducto:dtProducto" action="#{productoVista.eliminarProducto(producto.idProducto)}"></p:commandButton>
+                        <p:commandButton value="Editar" icon="fa fa-fw fa-edit" update=":frmProducto:ingresoProducto" action="#{productoVista.editarProducto(producto.idProducto)}"></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

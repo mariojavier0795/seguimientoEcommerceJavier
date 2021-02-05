@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Creación de Publicaciones</title>
+</h:head>
+<h:body>
+    <ui:composition template="/principal.xhtml">
+        <ui:define name="content">
+            <h:form id="frmPublicacion">
+                <h5>Publicación</h5>
+                <p:growl id="growl" showDetail="true" />
+                <p:panel id="ingresoPublicacion" header="Ingreso Publicación" style="margin-botton:20px">
+                    <p:panelGrid columns="4">
+                        <p:outputLabel>Fecha Publicación</p:outputLabel>
+                        <p:datePicker value="#{publicacionVista.publicacionBean.fechaPublicacion}" />
+                        <p:outputLabel>Fecha Vencimiento Publicación</p:outputLabel>
+                        <p:datePicker value="#{publicacionVista.publicacionBean.fechaVencimientoPublicacion}" />
+                        <p:outputLabel>Cantidad Publicación</p:outputLabel>
+                        <p:inputText value="#{publicacionVista.publicacionBean.cantidadPublicacion}"></p:inputText>
+                        <p:outputLabel>Vendedor Publicación</p:outputLabel>
+                        <p:inputText value="#{publicacionVista.publicacionBean.vendedorPublicacion}"></p:inputText>
+                        <p:outputLabel>Producto</p:outputLabel>
+                        <p:selectOneMenu value="#{publicacionVista.publicacionBean.fkProducto_2.idProducto}">
+                            <f:selectItems value="#{publicacionVista.lstProductos}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel>Plataforma</p:outputLabel>
+                        <p:selectOneMenu value="#{publicacionVista.publicacionBean.fkPlataforma.idPlataforma}">
+                            <f:selectItems value="#{publicacionVista.lstPlataformas}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2">
+                        <p:commandButton value="GUARDAR" icon="fa fa-fw fa-save"  update="growl frmPublicacion" action="#{publicacionVista.insertarPublicacion}"></p:commandButton>
+                        <p:commandButton value="CANCELAR" icon="fa fa-fw fa-remove"  update="growl frmPublicacion" action="#{publicacionVista.cancelarIngresoPublicacion}"></p:commandButton>
+                    </p:panelGrid>
+
+                </p:panel>
+
+                <p:dataTable id="dtPublicacion" var="publicacion" value="#{publicacionVista.lstPublicacion}" sixe="large" >
+                    <p:column headerText="Fecha Publicación">
+                        <h:outputText value="#{publicacion.fechaPublicacion}">
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Fecha Vencimiento Publicación">
+                        <h:outputText value="#{publicacion.fechaVencimientoPublicacion}">
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Cantidad Publicación">
+                        <h:outputText value="#{publicacion.cantidadPublicacion}" />
+                    </p:column>
+
+                    <p:column headerText="Vendedor Publicación">
+                        <h:outputText value="#{publicacion.vendedorPublicacion}" />
+                    </p:column>
+
+                    <p:column headerText="Plataforma">
+                        <h:outputText value="#{publicacion.fkPlataforma.nombrePlataforma}" />
+                    </p:column>
+
+                    <p:column headerText="Producto">
+                        <h:outputText value="#{publicacion.fkProducto_2.detalleProducto}" />
+                    </p:column>
+
+                    <p:column headerText="Operaciones">
+                        <p:commandButton value="Eliminar" icon="pi pi-trash" update=":frmPublicacion:dtPublicacion" action="#{publicacionVista.eliminarPublicacion(publicacion.idPublicacion)}"></p:commandButton>
+                        <p:commandButton value="Editar" icon="fa fa-fw fa-edit" update=":frmPublicacion:ingresoPublicacion"  action="#{publicacionVista.editarPublicacion(publicacion.idPublicacion)}"></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

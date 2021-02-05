@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Creación de Plataformas</title>
+</h:head>
+<h:body>
+    <ui:composition template="/principal.xhtml">
+        <ui:define name="content">
+            <h:form id="frmPlataforma">
+                <h5>Plataforma</h5>
+                <p:growl id="growl" showDetail="true" />
+                <p:panel id="ingresoPlataforma" header="Ingreso Plataforma" style="margin-botton:20px">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel>Nombre Plataforma</p:outputLabel>
+                        <p:inputText value="#{plataformaVista.plataformaBean.nombrePlataforma}"></p:inputText>
+                        <p:outputLabel>Observación Plataforma</p:outputLabel>
+                        <p:inputText value="#{plataformaVista.plataformaBean.observacionPlataforma}"></p:inputText>
+                        <p:commandButton value="GUARDAR" icon="fa fa-fw fa-save" update="growl frmPlataforma" action="#{plataformaVista.insertarPlataforma}"></p:commandButton>
+                        <p:commandButton value="CANCELAR" icon="fa fa-fw fa-remove" update="growl frmPlataforma" action="#{plataformaVista.cancelarIngresoPlataforma}"></p:commandButton>
+                    </p:panelGrid>
+
+                </p:panel>
+
+                <p:dataTable id="dtPlataforma" var="plataforma" value="#{plataformaVista.lstPlataformas}" sixe="large" >
+                    <p:column headerText="Nombre Plataforma">
+                        <h:outputText value="#{plataforma.nombrePlataforma}" />
+                    </p:column>
+
+                    <p:column headerText="Observación Plataforma">
+                        <h:outputText value="#{plataforma.observacionPlataforma}" />
+                    </p:column>
+
+                    <p:column headerText="Operaciones">
+                        <p:commandButton value="Eliminar" icon="pi pi-trash" update=":frmPlataforma:dtPlataforma" action="#{plataformaVista.eliminarPlataforma(plataforma.idPlataforma)}"></p:commandButton>
+                        <p:commandButton value="Editar" icon="fa fa-fw fa-edit" update=":frmPlataforma:ingresoPlataforma" action="#{plataformaVista.editarPlataforma(plataforma.idPlataforma)}"></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

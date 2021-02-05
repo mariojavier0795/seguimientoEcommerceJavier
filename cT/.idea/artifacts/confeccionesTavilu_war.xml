@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="confeccionesTavilu:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>confeccionesTavilu</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="confeccionesTavilu-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="confeccionesTavilu:war exploded" />
+    </root>
+  </artifact>
+</component>

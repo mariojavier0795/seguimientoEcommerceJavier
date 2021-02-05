@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Creación de Clientes</title>
+</h:head>
+<h:body>
+    <ui:composition template="/principal.xhtml">
+        <ui:define name="content">
+            <h:form id="frmCliente">
+                <h5>Cliente</h5>
+                <p:growl id="growl" showDetail="true" />
+                <p:panel id="ingresoCliente" header="Ingreso Clientes" style="margin-botton:20px">
+                    <p:panelGrid columns="6">
+                        <p:outputLabel>Nombre Cliente</p:outputLabel>
+                        <p:inputText value="#{clienteVista.clienteBean.nombreCliente}"></p:inputText>
+                        <p:outputLabel>Cédula Cliente</p:outputLabel>
+                        <p:inputText value="#{clienteVista.clienteBean.cedulaCliente}"></p:inputText>
+                        <p:outputLabel>Apellido Cliente</p:outputLabel>
+                        <p:inputText value="#{clienteVista.clienteBean.apellidoCliente}"></p:inputText>
+                        <p:outputLabel>Teléfono Cliente</p:outputLabel>
+                        <p:inputText value="#{clienteVista.clienteBean.telefonoCliente}"></p:inputText>
+                        <p:outputLabel>Celular Cliente</p:outputLabel>
+                        <p:inputText value="#{clienteVista.clienteBean.celularCliente}"></p:inputText>
+                        <p:outputLabel>Correo Cliente</p:outputLabel>
+                        <p:inputText id="email" label="email" size="40"
+                                     validatorMessage="Correo Inválido"
+                                     value="#{clienteVista.clienteBean.correoCliente}">
+                            <f:validateRegex
+                                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                        </p:inputText>
+                        <p:watermark for="email" value="Email Address *" />
+                        <p:message for="email" />
+                        <p:outputLabel>Ciudad Cliente</p:outputLabel>
+                        <p:inputText value="#{clienteVista.clienteBean.ciudadCliente}"></p:inputText>
+                        <p:outputLabel>Provincia Cliente</p:outputLabel>
+                        <p:inputText value="#{clienteVista.clienteBean.provinciaCliente}"></p:inputText>
+                        <p:outputLabel>Dirección Cliente</p:outputLabel>
+                        <p:inputText value="#{clienteVista.clienteBean.direccionCliente}"></p:inputText>
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2">
+                        <p:commandButton value="GUARDAR" icon="fa fa-fw fa-save"  update="growl frmCliente" action="#{clienteVista.insertarCliente}"></p:commandButton>
+                        <p:commandButton value="CANCELAR" icon="fa fa-fw fa-remove" update="growl frmCliente" action="#{clienteVista.cancelarIngresoCliente}"></p:commandButton>
+                    </p:panelGrid>
+
+                </p:panel>
+
+                <p:dataTable id="dtCliente" var="cliente" value="#{clienteVista.lstClientes}" sixe="large" >
+                    <p:column headerText="Nombre Cliente">
+                        <h:outputText value="#{cliente.nombreCliente}" />
+                    </p:column>
+
+                    <p:column headerText="Cédula Cliente">
+                        <h:outputText value="#{cliente.cedulaCliente}" />
+                    </p:column>
+
+                    <p:column headerText="Apellido Cliente">
+                        <h:outputText value="#{cliente.apellidoCliente}" />
+                    </p:column>
+
+                    <p:column headerText="Teléfono Cliente">
+                        <h:outputText value="#{cliente.telefonoCliente}" />
+                    </p:column>
+
+                    <p:column headerText="Celular Cliente">
+                        <h:outputText value="#{cliente.celularCliente}" />
+                    </p:column>
+
+                    <p:column headerText="Correo Cliente">
+                        <h:outputText value="#{cliente.correoCliente}" />
+                    </p:column>
+
+                    <p:column headerText="Ciudad Cliente">
+                        <h:outputText value="#{cliente.ciudadCliente}" />
+                    </p:column>
+
+                    <p:column headerText="Provincia Cliente">
+                        <h:outputText value="#{cliente.provinciaCliente}" />
+                    </p:column>
+
+                    <p:column headerText="Dirección Cliente">
+                        <h:outputText value="#{cliente.direccionCliente}" />
+                    </p:column>
+
+                    <p:column headerText="Operaciones">
+                        <p:commandButton value="Eliminar" icon="pi pi-trash" update=":frmCliente:dtCliente" action="#{clienteVista.eliminarCliente(cliente.idCliente)}"></p:commandButton>
+                        <p:commandButton value="Editar" icon="fa fa-fw fa-edit" update=":frmCliente:ingresoCliente" action="#{clienteVista.editarCliente(cliente.idCliente)}"></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

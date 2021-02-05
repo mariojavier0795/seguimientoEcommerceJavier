@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>Seguimiento Ecommerce</title>
+		</f:facet>
+
+	</h:head>
+
+	<style>
+html * {
+	font-size: 14px !important;
+}
+
+.north {
+    background-color: black;
+    position: absolute;
+    top:0px;
+    width: 100%;
+    height: 40px;
+}
+}
+</style>
+	<h:body>
+
+		<p:layout fullPage="true" styleClass="backgroundless">
+
+			<p:layoutUnit position="north" size="195" resizable="false" styleClass="north" 
+				closable="false" collapsible="false">
+
+				<h:panelGrid columns="2">
+					<p:graphicImage width="150px"
+						value="#{FacesContext.getCurrentInstance}/image/logocomprarys.png" style= "  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;"/>
+					<h:panelGrid cellpadding="6" width="100%">
+						<h:form>
+
+							
+						</h:form>
+					</h:panelGrid>
+					
+				</h:panelGrid>
+			</p:layoutUnit>
+
+
+			<p:layoutUnit position="west" size="182" header="Menu" style="border:2;" collapsible="true">
+				<p:menu toggleable="true">
+					
+					<p:submenu label="Ingreso" style="border:0;">
+						<p:menuitem icon="fa fa-star " value="Plataforma" outcome="plataforma" />
+						<p:menuitem icon="fa fa-credit-card" value="Cliente" outcome="cliente" />
+						<p:menuitem icon="fa fa-diamond " value="Producto" outcome="producto" />
+						<p:menuitem icon="fa fa-book " value="Pedido" outcome="pedido" />
+						<p:menuitem icon="fa fa-home " value="Publicacion" outcome="publicacion" />
+						<p:menuitem icon="fa fa-sign-out " value="Despacho" outcome="despacho" />
+					</p:submenu>
+					
+					<p:submenu label="Reportes" style="border:0;">
+						<p:menuitem icon="fa fa-laptop" value="Reporte Pedidos" outcome="reportePedido" />
+						<p:menuitem icon="fa fa-line-chart " value="Reporte Publicaciones" outcome="reportePublicacion" />
+						
+					</p:submenu>
+					
+				</p:menu>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center" size="100%">
+				<ui:insert name="content" />
+
+			</p:layoutUnit>
+
+		</p:layout>
+
+	</h:body>
+
+</f:view>
+</html>
+
